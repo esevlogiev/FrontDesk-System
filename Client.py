@@ -12,7 +12,8 @@ class Client:
 		self.phone_number = phone_number
 
 	def __str__(self):
-		return self.first_name + ' ' + self.last_name + ' is registered on ' + self.date_registere + ' in room ' + str(self.number_room)
+		return self.first_name + ' ' + self.last_name + ' is registered on '\
+		       + self.date_registere + ' in room ' + str(self.number_room)
 
 	def get_first_name(self):
 		return self.first_name
