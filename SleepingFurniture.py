@@ -4,7 +4,7 @@ import sqlite3
 
 #to be a structure
 class FurnitureQuality:
-    def __init__(self, quality):
+    def __init__(self, qualiy):
         self.quality = quality
 
     def __str__(self):
@@ -48,4 +48,5 @@ class SleepingFurniture(Furniture):
             self.sleeping_seats = value
 
     def __str__(self):
-        return Furniture.__str__(self) + " and " + str(self.sleeping_seats) + " sleeping seats"
+        return Furniture.__str__(self) + " and " +\
+               str(self.sleeping_seats) + " sleeping seats"
