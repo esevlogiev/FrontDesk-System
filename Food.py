@@ -12,7 +12,8 @@ class ExpirableItemBase:
         return current_date.isoformat()[:10] >= self.date_of_expire
 
     def __str__(self):
-        return "made on " + self.manufacture_date + ", expired on " + self.date_of_expire
+        return "made on " + self.manufacture_date + ", expired on "\
+               + self.date_of_expire
 
 class Food(ExpirableItemBase, Item):
     def __init__(self, name, quantity, manufacture_date, date_of_expire):
@@ -45,4 +46,5 @@ class Food(ExpirableItemBase, Item):
             self.quantity += quantity
 
     def __str__(self):
-        return self.name + " with quantity " + str(self.quantity) + " " + ExpirableItemBase.__str__(self)
+        return self.name + " with quantity " + str(self.quantity) +\
+               " " + ExpirableItemBase.__str__(self)
