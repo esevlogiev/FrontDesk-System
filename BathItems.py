@@ -28,5 +28,7 @@ class BathItems:
         return delta.days > self.replace_period
 
     def __str__(self):
-        return self.name + " from type " + self.type + " is last replace on " + self.last_replace_date + " with replace period of " + str(self.replace_period) + " days"
+        return self.name + " from type " + self.type + " is last replace on "\
+              + self.last_replace_date + " with replace period of " \
+              + str(self.replace_period) + " days"
         
