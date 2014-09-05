@@ -12,7 +12,7 @@ from management.room_management import get_all_rooms_number,\
 
 
 class SleepingFurniture_Form(QWidget):
-    def __init__( self ):
+    def __init__(self):
         super(SleepingFurniture_Form, self).__init__()
         self.setupUi(self)
 
