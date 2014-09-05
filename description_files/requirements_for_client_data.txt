@@ -1,0 +1,12 @@
+1. First and Last name to contain only letters from english alphabet.
+2. Phone Number of clients to be in local or international format:
+   *   Prefix
+       - in local format starts with 0 and the starting 0 can't be followed by another 0.
+       - in international format starts with 00 or with + and formats from 1 to 3 digits(international code), with no splitters between them; International code can't start with 0.
+   *   Main Part
+       - from 6 do 11 digits
+       - optional between every digit can be placed maximum 2 of the following splitters - space, -, ( or )
+       - main part can't end with splitter, but can start with splitter(s)
+   Examples:
+   1. In local format - 08812121212
+   2. In international format - +359 88 121-212-12

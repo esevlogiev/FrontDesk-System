@@ -1,0 +1,4 @@
+    FrontDesk System is designed for receptionist use.
+*   With this software receptionist easy will make and manage reservation.
+*   Application gives oppurtunity for controlling rooms and clients of hotel.
+*   With this program also easy may observe of quality of rooms items and these which are broken to be replaced. 

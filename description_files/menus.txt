@@ -1,0 +1,7 @@
+1. Main Menu
+   *   Room Management - gives oppurtunities for adding new room, for releasing room, for adding new in items in given room and for showing items in given room.
+   *   Client Management -  from here the user can add new client and also show all visits of given client in the hotel.
+   *   Reservation Management - from this menu the user can make reservation or cancel a made one.
+2. Help
+   *   Description - describe main usages of this application.
+   *   About - show information about the author and the license.
