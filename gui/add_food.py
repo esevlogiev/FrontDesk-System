@@ -109,8 +109,8 @@ class Food_Form(QWidget):
         if new_food in self.foods:
             notifier = QMessageBox(QMessageBox.Question,
                                    "Add New Food",
-                                   ("You have already added this food." +
-                                    " Do you want to add it again?"),
+                                   "You have already added this food." +
+                                   " Do you want to add it again?",
                                    QMessageBox.Yes | QMessageBox.No)
             notifier.setDefaultButton(QMessageBox.No)
             choosed_option = notifier.exec_()
@@ -125,5 +125,5 @@ class Food_Form(QWidget):
         add_food(new_food)
         self.foods.append(new_food)
         QMessageBox(QMessageBox.Information, "Add New Food",
-                    ("Congratulations. You successfully" +
-                     " added this food!!!")).exec_()
+                    "Congratulations. You successfully" +
+                    " added this food!!!").exec_()
