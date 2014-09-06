@@ -14,8 +14,10 @@ from gui.add_sleeping_furniture import SleepingFurniture_Form
 
 
 FORMS = [Furniture_Form, SleepingFurniture_Form, BathItems_Form, Food_Form]
+
+
 class AddItemDialog(QDialog):
-    def __init__( self ):
+    def __init__(self):
         super(AddItemDialog, self).__init__()
         self.setupUi(self)
 
@@ -33,7 +35,6 @@ class AddItemDialog(QDialog):
             self.item_properties_switch.setCurrentIndex)
 
         self.add_button = QPushButton("Add")
-
 
         mainLayout = QVBoxLayout(self)
         mainLayout.addWidget(self.item_type_picker)
