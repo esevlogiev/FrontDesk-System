@@ -9,6 +9,7 @@ from classes.sleeping_furniture import SleepingFurniture
 
 SLEEPING_FURNITURE_CHARACTERISTICS = 4
 
+
 class SleepingFurnituresModel(QAbstractItemModel):
     def __init__(self):
         super(SleepingFurnituresModel, self).__init__()
@@ -50,7 +51,6 @@ class SleepingFurnituresModel(QAbstractItemModel):
 
     def is_valid_column_index(self, column_index):
         return 0 <= column_index and column_index < self.columnCount()
-
 
     def parent(self, child):
         return QModelIndex()
