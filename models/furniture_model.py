@@ -56,8 +56,6 @@ class FurnituresModel(QAbstractItemModel):
                 return ('Room Number', 'Name', 'Quality')[section]
         return QVariant()
 
-
-
     def index(self, row, column, parent=QModelIndex()):
         if self.is_valid_row_index(row) and self.is_valid_column_index(column):
             return self.createIndex(row, column)
@@ -70,10 +68,5 @@ class FurnituresModel(QAbstractItemModel):
     def is_valid_column_index(self, column_index):
         return 0 <= column_index and column_index < self.columnCount()
 
-
     def parent(self, child):
         return QModelIndex()
-
-
-
-
