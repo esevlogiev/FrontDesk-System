@@ -18,9 +18,10 @@ TEST_DATABASE_FILENAME = 'tests.db'
 
 import unittest
 
+
 class ClientManagementTest(unittest.TestCase):
     def __init__(self, *args):
-        unittest.TestCase.__init__(self, *args) 
+        unittest.TestCase.__init__(self, *args)
 
     def setUp(self):
         create_tables(TEST_DATABASE_FILENAME)
@@ -53,7 +54,6 @@ class ClientManagementTest(unittest.TestCase):
         other_client = Client('Rafael', 'Nadal', '0898671234', 101, 5,
                               new_client_first_day)
 
-        
         self.assertTrue(add_client(client, 100, TEST_DATABASE_FILENAME))
         self.assertFalse(add_client(client, 101, TEST_DATABASE_FILENAME))
         self.assertTrue(add_client(client, 102, TEST_DATABASE_FILENAME))
@@ -73,7 +73,6 @@ class ClientManagementTest(unittest.TestCase):
         release_room(101, TEST_DATABASE_FILENAME)
         self.assertTrue(add_client(other_client, 101, TEST_DATABASE_FILENAME))
 
-
     def test_show_client(self):
         delete_clients_table_rows(TEST_DATABASE_FILENAME)
         delete_room_table_rows(TEST_DATABASE_FILENAME)
@@ -82,7 +81,7 @@ class ClientManagementTest(unittest.TestCase):
         client_first_day = date_to_string(date.today() + timedelta(days=2))
         new_client_first_day = date_to_string(date.today() + timedelta(days=4))
         client = Client('Roger', 'Federer', '0898671234', 100, 10,
-                         client_first_day)
+                        client_first_day)
         other_client = Client('Rafael', 'Nadal', '0898671234', 101, 5,
                               new_client_first_day)
         add_client(client, 100, TEST_DATABASE_FILENAME)
@@ -93,9 +92,11 @@ class ClientManagementTest(unittest.TestCase):
         add_client(client_, 102, TEST_DATABASE_FILENAME)
         add_client(other_client, 101, TEST_DATABASE_FILENAME)
 
-        given_name_clients = [client[0] for client in show_client('Roger',
-                                            'Federer', TEST_DATABASE_FILENAME)]      
-        other_name_clients = [client[0] for client in show_client('Rafael', 'Nadal',
+        given_name_clients = [client[0]
+                              for client in show_client('Roger', 'Federer',
+                                                        TEST_DATABASE_FILENAME)]
+        other_name_clients = [client[0]
+                              for client in show_client('Rafael', 'Nadal',
                                                         TEST_DATABASE_FILENAME)]
         self.assertCountEqual([client, client_], given_name_clients)
         self.assertCountEqual([other_client], other_name_clients)
@@ -103,7 +104,7 @@ class ClientManagementTest(unittest.TestCase):
         self.assertNotEqual([other_client, client], given_name_clients)
         self.assertFalse(show_client('Roger', 'Nadal', TEST_DATABASE_FILENAME))
         self.assertFalse(show_client('Rafael', 'Federer',
-                                      TEST_DATABASE_FILENAME))
+                                     TEST_DATABASE_FILENAME))
 
     def test_accomodate_clients(self):
         delete_room_table_rows(TEST_DATABASE_FILENAME)
@@ -112,8 +113,10 @@ class ClientManagementTest(unittest.TestCase):
         self.add_test_rooms()
 
         date_registere = date_to_string(datetime.date.today())
-        other_client_first_day = date_to_string(date.today() + timedelta(days=4))
-        client = Client('Roger', 'Federer', '0898671234', 100, 5, date_registere)
+        other_client_first_day = (date_to_string(date.today() +
+                                  timedelta(days=4)))
+        client = Client('Roger', 'Federer', '0898671234', 100, 5,
+                        date_registere)
         other_client = Client('Rafael', 'Nadal', '0898671234', 101, 10,
                               other_client_first_day)
 
@@ -125,7 +128,8 @@ class ClientManagementTest(unittest.TestCase):
                                          TEST_DATABASE_FILENAME)
         clients = [client[0] for client in clients_with_maids]
         self.assertTrue(client in clients)
-        self.assertFalse(show_client('Rafael', 'Nadal', TEST_DATABASE_FILENAME))
+        self.assertFalse(show_client('Rafael', 'Nadal',
+                                     TEST_DATABASE_FILENAME))
 
     def test_get_client_id(self):
         delete_clients_table_rows(TEST_DATABASE_FILENAME)
@@ -133,11 +137,14 @@ class ClientManagementTest(unittest.TestCase):
         self.add_test_rooms()
 
         date_registere = date_to_string(datetime.date.today())
-        other_client_first_day = date_to_string(date.today() + timedelta(days=5))
-        client = Client('Roger', 'Federer', '0898671234', 100, 5, date_registere)
+        other_client_first_day = (date_to_string(date.today() +
+                                  timedelta(days=5)))
+        client = Client('Roger', 'Federer', '0898671234', 100, 5,
+                        date_registere)
         other_client = Client('Rafael', 'Nadal', '0898671234', 101, 10,
                               other_client_first_day)
         add_client(client, 100, TEST_DATABASE_FILENAME)
         self.assertEqual(get_client_id(client, TEST_DATABASE_FILENAME), 0)
         add_client(other_client, 101, TEST_DATABASE_FILENAME)
-        self.assertEqual(get_client_id(other_client, TEST_DATABASE_FILENAME), 1)
+        self.assertEqual(get_client_id(other_client, TEST_DATABASE_FILENAME),
+                         1)
