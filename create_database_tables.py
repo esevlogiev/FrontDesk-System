@@ -2,7 +2,8 @@ import sqlite3
 
 DATABASE_FILENAME = 'front_desk_system.db'
 
-def create_tables(filename = DATABASE_FILENAME):
+
+def create_tables(filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute('''Create table if not exists Rooms(room)''')
@@ -17,12 +18,14 @@ def create_tables(filename = DATABASE_FILENAME):
                    client)''')
     connection.close()
 
+
 def delete_clients_table_rows(filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute('''Delete from Clients''')
     connection.commit()
     connection.close()
+
 
 def delete_room_table_rows(filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
@@ -31,13 +34,13 @@ def delete_room_table_rows(filename=DATABASE_FILENAME):
     connection.commit()
     connection.close()
 
+
 def delete_reservations_table_rows(filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute('''Delete from Reservations''')
     connection.commit()
     connection.close()
-
 
 
 def delete_maids_table_rows(filename=DATABASE_FILENAME):
