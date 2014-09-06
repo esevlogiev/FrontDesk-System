@@ -9,6 +9,7 @@ from classes.client import Client
 
 CLIENT_CHARACTERISTICS = 6
 
+
 class ClientsModel(QAbstractItemModel):
     def __init__(self,  is_maid=False):
         super(ClientsModel, self).__init__()
@@ -34,9 +35,9 @@ class ClientsModel(QAbstractItemModel):
             return QVariant()
 
         if self.is_maid:
-            client = (self.clients[index.row()])[0]   
+            client = (self.clients[index.row()])[0]
         else:
-            client = self.clients[index.row()] 
+            client = self.clients[index.row()]
         getters = ('get_number_room', 'get_first_name', 'get_last_name',
                    'get_phone_number', 'get_time_stay', 'get_date_registere')
         if not self.is_maid and index.column() < self.columnCount():
@@ -59,7 +60,6 @@ class ClientsModel(QAbstractItemModel):
 
     def is_valid_column_index(self, column_index):
         return 0 <= column_index and column_index < self.columnCount()
-
 
     def parent(self, child):
         return QModelIndex()
