@@ -3,8 +3,9 @@ import os.path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from PyQt5.QtCore import QDate
-from PyQt5.QtWidgets import QLabel, QLineEdit, QDateEdit, QDialog, QMessageBox,\
-                            QGridLayout, QApplication, QLayout, QWidget
+from PyQt5.QtWidgets import (QLabel, QLineEdit, QDateEdit, QDialog,
+                             QMessageBox, QGridLayout, QApplication,
+                             QLayout, QWidget)
 
 import gui.add_furniture
 from classes.food import Food
@@ -13,19 +14,19 @@ from management.room_management import add_food, get_all_rooms_number
 
 
 class Food_Form(QWidget):
-    def __init__( self ):
+    def __init__(self):
         super(Food_Form, self).__init__()
         self.setupUi(self)
 
     def setupUi(self, Food_Form):
         layout = QGridLayout()
         self.foods = []
-        
+
         if get_all_rooms_number() != []:
             min_room_number = min(get_all_rooms_number())
             max_room_number = max(get_all_rooms_number())
-            room_number_label = "Enter room number({0}-{1}):".\
-            format(str(min_room_number), str(max_room_number))
+            room_number_label = "Enter room number({0}-{1}):".format(
+                                str(min_room_number), str(max_room_number))
         else:
             room_number_label = ''
         self.room_number_label = QLabel(room_number_label)
@@ -50,7 +51,7 @@ class Food_Form(QWidget):
         layout.addWidget(self.manufacture_date_edit, 3, 1)
         layout.addWidget(self.expire_date_label, 4, 0)
         layout.addWidget(self.expire_date_edit, 4, 1)
-        
+
         self.setLayout(layout)
         self.layout().setSizeConstraint(QLayout.SetFixedSize)
 
@@ -59,7 +60,6 @@ class Food_Form(QWidget):
         self.furniture.show()
         self.close()
 
-    #'%s/%s/%s' % (dt.month, dt.day, dt.year)
     def date_to_string(self, date):
         year = str(date.year())
         month = str(date.month())
@@ -70,7 +70,7 @@ class Food_Form(QWidget):
         return (not Validations.is_name(name) or
                 not Validations.is_float_number(quantity) or
                 QDate.currentDate() >= self.expire_date_edit.date() or
-                self.expire_date_edit.date() <=\
+                self.expire_date_edit.date() <=
                 self.manufacture_date_edit.date() or
                 not int(room_number) in get_all_rooms_number())
 
@@ -82,8 +82,8 @@ class Food_Form(QWidget):
         for i in range(len(data)):
             if not properties[i](data[i]):
                 result.append(messages[i] + ',')
-        if (not Validations.is_positive_integer(room_number) or 
-            not int(room_number) in get_all_rooms_number()):
+        if (not Validations.is_positive_integer(room_number) or
+           not int(room_number) in get_all_rooms_number()):
             result.append('room number' + ',')
         return ' '.join(result)
 
@@ -91,14 +91,15 @@ class Food_Form(QWidget):
         room_number = self.room_number_line_edit.text()
         name = self.food_name_line_edit.text()
         quantity = self.food_quantity_line_edit.text()
-        manufacture_date = self.date_to_string(self.manufacture_date_edit.date())
+        manufacture_date = (self.date_to_string(
+                            self.manufacture_date_edit.date()))
         expire_date = self.date_to_string(self.expire_date_edit.date())
 
         if self.is_information_invalid(room_number, name, quantity):
-            error_message = self.error_message(name, quantity, room_number) 
+            error_message = self.error_message(name, quantity, room_number)
             QMessageBox(QMessageBox.Critical, "Error",
-                        "Invalid "  + error_message[:len(error_message) - 1] +\
-                         ". Correct it!!!").exec_()
+                        "Invalid " + error_message[:len(error_message) - 1] +
+                        ". Correct it!!!").exec_()
             return
 
         new_food = Food(str(name.lower()),
@@ -108,19 +109,21 @@ class Food_Form(QWidget):
         if new_food in self.foods:
             notifier = QMessageBox(QMessageBox.Question,
                                    "Add New Food",
-              "You have already added this food. Do you want to add it again?", 
-                                    QMessageBox.Yes | QMessageBox.No)
+                                   ("You have already added this food." +
+                                    " Do you want to add it again?"),
+                                   QMessageBox.Yes | QMessageBox.No)
             notifier.setDefaultButton(QMessageBox.No)
             choosed_option = notifier.exec_()
 
             if choosed_option == QMessageBox.No:
                 return
             elif choosed_option == QMessageBox.Yes:
-                self.foods.append(new_food)        
+                self.foods.append(new_food)
                 add_food(new_food)
                 return
 
         add_food(new_food)
         self.foods.append(new_food)
         QMessageBox(QMessageBox.Information, "Add New Food",
-                    "Congratulations. You successful added this food!!!").exec_()
+                    ("Congratulations. You successfully" +
+                     " added this food!!!")).exec_()
