@@ -15,7 +15,7 @@ from management.client_management import date_to_string
 
 class BathItemsTest(unittest.TestCase):
     def __init__(self, *args):
-        unittest.TestCase.__init__(self, *args) 
+        unittest.TestCase.__init__(self, *args)
 
     def test_with_wrong_arguemnts(self):
         self.assertRaises(TypeError, BathItems, 'missing 4 required positional\
@@ -23,10 +23,10 @@ class BathItemsTest(unittest.TestCase):
 
     def test_property_decorator(self):
         bath_item = BathItems('tooth brush', "2014-10-10", 20, 120)
-        self.assertRaises(AttributeError, get_room_number = 121)
-        self.assertRaises(AttributeError, get_name = "mirror")
-        self.assertRaises(AttributeError, get_replace_period = 10)
-        self.assertRaises(AttributeError, get_last_replace_date = "2014-10-11")
+        self.assertRaises(AttributeError, get_room_number=121)
+        self.assertRaises(AttributeError, get_name="mirror")
+        self.assertRaises(AttributeError, get_replace_period=10)
+        self.assertRaises(AttributeError, get_last_replace_date="2014-10-11")
 
     def test_initialization(self):
         bath_item = BathItems('tooth brush', "2014-10-10", 20, 120)
@@ -46,7 +46,6 @@ class BathItemsTest(unittest.TestCase):
         self.assertTrue(bath_item.get_room_number, int)
         self.assertTrue(bath_item.get_replace_period, int)
 
-    #check why the second variant isn't possible
     def test_has_to_replace(self):
         last_replace_date = date_to_string(date.today() - timedelta(days=21))
         bath_item = BathItems('tooth brush', last_replace_date, 30, 120)
@@ -57,14 +56,15 @@ class BathItemsTest(unittest.TestCase):
 
     def test_is_instance(self):
         self.assertIsInstance(BathItems('tooth brush', "2014-10-10", 20, 120),
-                                         BathItems, 'this object is not\
-                                                     instance of this class')
-        self.assertNotIsInstance(BathItems('tooth brush', "2014-10-10", 20, 120),
-                                 Client)
+                              BathItems, 'this object is not' +
+                                         'instance of this class')
+        self.assertNotIsInstance(BathItems('tooth brush', "2014-10-10", 20,
+                                           120), Client)
+
 
 class ClientTest(unittest.TestCase):
     def __init__(self, *args):
-        unittest.TestCase.__init__(self, *args) 
+        unittest.TestCase.__init__(self, *args)
 
     def test_with_wrong_arguemnts(self):
         self.assertRaises(TypeError, Client, 'missing 6 required positional\
@@ -72,12 +72,12 @@ class ClientTest(unittest.TestCase):
 
     def test_property_decorator(self):
         client = Client('Roger', 'Federer', '0898671234', 120, 5, '2014-08-20')
-        self.assertRaises(AttributeError, get_first_name = 'Rafael')
-        self.assertRaises(AttributeError, get_last_name = 'Nadal')
-        self.assertRaises(AttributeError, get_phone_number = '0888888888')
-        self.assertRaises(AttributeError, get_number_room = 130)
-        self.assertRaises(AttributeError, get_time_stay = 10)
-        self.assertRaises(AttributeError, get_date_registere = "2014-10-11")
+        self.assertRaises(AttributeError, get_first_name='Rafael')
+        self.assertRaises(AttributeError, get_last_name='Nadal')
+        self.assertRaises(AttributeError, get_phone_number='0888888888')
+        self.assertRaises(AttributeError, get_number_room=130)
+        self.assertRaises(AttributeError, get_time_stay=10)
+        self.assertRaises(AttributeError, get_date_registere="2014-10-11")
 
     def test_initialization(self):
         client = Client('Roger', 'Federer', '0898671234', 120, 5, '2014-08-20')
@@ -95,7 +95,8 @@ class ClientTest(unittest.TestCase):
         self.assertNotEqual(client.get_date_registere, '2014-10-20')
 
     def test_type_correctness(self):
-        client = Client('Roger', 'Federeer', '0898671234', 120, 5, '2014-08-20')
+        client = Client('Roger', 'Federeer', '0898671234', 120, 5,
+                        '2014-08-20')
         self.assertTrue(client.get_first_name, str)
         self.assertTrue(client.get_last_name, str)
         self.assertTrue(client.get_phone_number, str)
@@ -103,7 +104,6 @@ class ClientTest(unittest.TestCase):
         self.assertTrue(client.get_time_stay, int)
         self.assertTrue(client.get_date_registere, str)
 
-    #check why the second variant isn't possible
     def test_clients_equality(self):
         client = Client('Roger', 'Federer', '0898671234', 120, 5, '2014-08-20')
         other_client = Client('Rafael', 'Nadal', '0898671234', 120, 5,
@@ -119,9 +119,10 @@ class ClientTest(unittest.TestCase):
         self.assertNotIsInstance(Client('Roger', 'Federer', '0898671234', 120,
                                         5, '2014-08-20'), BathItems)
 
+
 class FoodTest(unittest.TestCase):
     def __init__(self, *args):
-        unittest.TestCase.__init__(self, *args) 
+        unittest.TestCase.__init__(self, *args)
 
     def test_with_wrong_arguemnts(self):
         self.assertRaises(TypeError, Food, 'missing 5 required positional\
@@ -129,11 +130,11 @@ class FoodTest(unittest.TestCase):
 
     def test_property_decorator(self):
         food = Food('Ice Cream', 3, '2014-8-10', '2014-9-10', 120)
-        self.assertRaises(AttributeError, get_name = 'orange')
-        self.assertRaises(AttributeError, get_quantity = 5)
-        self.assertRaises(AttributeError, get_manufacture_date = '2014-10-10')
-        self.assertRaises(AttributeError, get_expire_date = '2014-11-11')
-        self.assertRaises(AttributeError, get_room_number = 130)
+        self.assertRaises(AttributeError, get_name='orange')
+        self.assertRaises(AttributeError, get_quantity=5)
+        self.assertRaises(AttributeError, get_manufacture_date='2014-10-10')
+        self.assertRaises(AttributeError, get_expire_date='2014-11-11')
+        self.assertRaises(AttributeError, get_room_number=130)
 
     def test_initialization(self):
         food = Food('Ice Cream', 3, '2014-8-10', '2014-9-10', 120)
@@ -182,7 +183,7 @@ class FoodTest(unittest.TestCase):
 
 class RoomTest(unittest.TestCase):
     def __init__(self, *args):
-        unittest.TestCase.__init__(self, *args) 
+        unittest.TestCase.__init__(self, *args)
 
     def test_with_wrong_arguemnts(self):
         self.assertRaises(TypeError, Room, 'missing 4 required positional\
@@ -190,10 +191,10 @@ class RoomTest(unittest.TestCase):
 
     def test_property_decorator(self):
         room = Room(120, 20, 5, 'False')
-        self.assertRaises(AttributeError, get_number = 121)
-        self.assertRaises(AttributeError, get_price_per_day = 30.5)
-        self.assertRaises(AttributeError, get_capacity = 10)
-        self.assertRaises(AttributeError, get_is_rent = 'True')
+        self.assertRaises(AttributeError, get_number=121)
+        self.assertRaises(AttributeError, get_price_per_day=30.5)
+        self.assertRaises(AttributeError, get_capacity=10)
+        self.assertRaises(AttributeError, get_is_rent='True')
 
     def test_initialization(self):
         room = Room(120, 20, 5, 'False')
@@ -228,7 +229,7 @@ class RoomTest(unittest.TestCase):
 
 class FurnitureTest(unittest.TestCase):
     def __init__(self, *args):
-        unittest.TestCase.__init__(self, *args) 
+        unittest.TestCase.__init__(self, *args)
 
     def test_with_wrong_arguemnts(self):
         self.assertRaises(TypeError, Furniture, 'missing 3 required positional\
@@ -236,9 +237,9 @@ class FurnitureTest(unittest.TestCase):
 
     def test_property_decorator(self):
         furniture = Furniture('sofa', 'excellent', 120)
-        self.assertRaises(AttributeError, get_name = 'bed')
-        self.assertRaises(AttributeError, get_quality = 'good')
-        self.assertRaises(AttributeError, get_room_number = 130)
+        self.assertRaises(AttributeError, get_name='bed')
+        self.assertRaises(AttributeError, get_quality='good')
+        self.assertRaises(AttributeError, get_room_number=130)
 
     def test_initialization(self):
         furniture = Furniture('sofa', 'excellent', 120)
@@ -248,7 +249,6 @@ class FurnitureTest(unittest.TestCase):
         self.assertNotEqual(furniture.get_quality, 'bad')
         self.assertEqual(furniture.get_room_number, 120)
         self.assertNotEqual(furniture.get_room_number, 130)
-
 
     def test_type_correctness(self):
         furniture = Furniture('sofa', 'excellent', 120)
@@ -271,18 +271,18 @@ class FurnitureTest(unittest.TestCase):
 
 class SleepingFurnitueTest(unittest.TestCase):
     def __init__(self, *args):
-        unittest.TestCase.__init__(self, *args) 
+        unittest.TestCase.__init__(self, *args)
 
     def test_with_wrong_arguemnts(self):
-        self.assertRaises(TypeError, SleepingFurniture, 
+        self.assertRaises(TypeError, SleepingFurniture,
                           'missing 4 required positional arguments')
 
     def test_property_decorator(self):
         sleeping_furniture = SleepingFurniture('sofa', 'excellent', 2, 120)
-        self.assertRaises(AttributeError, get_name = 'bed')
-        self.assertRaises(AttributeError, get_quality = 'good')
-        self.assertRaises(AttributeError, get_sleeping_seats = 3)
-        self.assertRaises(AttributeError, get_room_number = 130)
+        self.assertRaises(AttributeError, get_name='bed')
+        self.assertRaises(AttributeError, get_quality='good')
+        self.assertRaises(AttributeError, get_sleeping_seats=3)
+        self.assertRaises(AttributeError, get_room_number=130)
 
     def test_initialization(self):
         sleeping_furniture = SleepingFurniture('sofa', 'excellent', 2, 120)
@@ -294,7 +294,6 @@ class SleepingFurnitueTest(unittest.TestCase):
         self.assertNotEqual(sleeping_furniture.get_sleeping_seats, 3)
         self.assertEqual(sleeping_furniture.get_room_number, 120)
         self.assertNotEqual(sleeping_furniture.get_room_number, 130)
-
 
     def test_type_correctness(self):
         sleeping_furniture = SleepingFurniture('sofa', 'excellent', 2, 120)
