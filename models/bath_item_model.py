@@ -9,6 +9,7 @@ from classes.bath_items import BathItems
 
 BATH_ITEM_CHARACTERISTICS = 4
 
+
 class BathItemsModel(QAbstractItemModel):
     def __init__(self):
         super(BathItemsModel, self).__init__()
@@ -40,8 +41,6 @@ class BathItemsModel(QAbstractItemModel):
 
         return QVariant()
 
-
-
     def index(self, row, column, parent=QModelIndex()):
         if self.is_valid_row_index(row) and self.is_valid_column_index(column):
             return self.createIndex(row, column)
@@ -53,7 +52,6 @@ class BathItemsModel(QAbstractItemModel):
 
     def is_valid_column_index(self, column_index):
         return 0 <= column_index and column_index < self.columnCount()
-
 
     def parent(self, child):
         return QModelIndex()
