@@ -9,6 +9,7 @@ from classes.food import Food
 
 FOOD_CHARACTERISTICS = 5
 
+
 class FoodModel(QAbstractItemModel):
     def __init__(self):
         super(FoodModel, self).__init__()
@@ -51,7 +52,6 @@ class FoodModel(QAbstractItemModel):
 
     def is_valid_column_index(self, column_index):
         return 0 <= column_index and column_index < self.columnCount()
-
 
     def parent(self, child):
         return QModelIndex()
