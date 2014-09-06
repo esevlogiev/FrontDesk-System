@@ -1,11 +1,11 @@
 import sys
 import os.path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 from classes.items import Item
 import sqlite3
 
 
-#to be a structure
 class FurnitureQuality:
     def __init__(self, quality):
         self.quality = quality
@@ -30,7 +30,7 @@ class Furniture(Item):
 
     def __conform__(self, protocol):
         if protocol is sqlite3.PrepareProtocol:
-            return "%s;%s;%i" % (self.name, self.quality, 
+            return "%s;%s;%i" % (self.name, self.quality,
                                  self.room_number)
 
     @property
@@ -46,27 +46,24 @@ class Furniture(Item):
         return self.room_number
 
 
-
-
 class SleepingFurniture(Furniture):
     def __init__(self, name, quality, sleeping_seats, room_number):
         Furniture.__init__(self, name, quality, room_number)
         self.sleeping_seats = sleeping_seats
 
     def __str__(self):
-        return Furniture.__str__(self) + " and " +\
-               str(self.sleeping_seats) + " sleeping seats"
+        return (Furniture.__str__(self) + " and " +
+                str(self.sleeping_seats) + " sleeping seats")
 
     def __conform__(self, protocol):
         if protocol is sqlite3.PrepareProtocol:
             return "%s;%s;%i;%i" % (self.name, self.quality,
                                     self.sleeping_seats, self.room_number)
-    
-    @property                                
+
+    @property
     def get_sleeping_seats(self):
         return self.sleeping_seats
 
     def set_sleeping_seats(self, value):
         if value > 0:
             self.sleeping_seats = value
-
