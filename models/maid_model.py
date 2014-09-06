@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QTableView, QAbstractScrollArea, QApplication
 
 MAID_CHARACTERISTICS = 2
 
+
 class MaidModel(QAbstractItemModel):
     def __init__(self):
         super(MaidModel, self).__init__()
@@ -42,7 +43,6 @@ class MaidModel(QAbstractItemModel):
 
     def is_valid_column_index(self, column_index):
         return 0 <= column_index and column_index < self.columnCount()
-
 
     def parent(self, child):
         return QModelIndex()
