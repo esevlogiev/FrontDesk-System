@@ -7,8 +7,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from classes.food import Food
-from management.room_management import release_room, get_all_rooms_number,\
-                                       get_all_free_rooms_number
+from management.room_management import (release_room, get_all_rooms_number,
+                                        get_all_free_rooms_number)
 from data_correctness import Validations
 
 import gui.add_furniture
@@ -50,7 +50,7 @@ class ReleaseRoom_Form(QDialog):
 
     def release_button_click(self):
         room_number = self.room_number_combo_box.currentText()
-        
+
         if not int(room_number) in get_all_rooms_number():
             QMessageBox(QMessageBox.Critical, "Error",
                         "This room doesn't exist. Correct it!!!").exec()
@@ -59,7 +59,7 @@ class ReleaseRoom_Form(QDialog):
         if int(room_number) in get_all_free_rooms_number():
             QMessageBox(QMessageBox.Critical, "Error",
                         "This room isn't rent. Correct it!!!").exec()
-            return        
+            return
 
         if int(room_number) in self.release_rooms:
             notifier = QMessageBox(QMessageBox.Warning,
@@ -68,9 +68,9 @@ class ReleaseRoom_Form(QDialog):
             choosed_option = notifier.exec()
             return
 
-
         release_room(int(room_number))
 
         self.release_rooms.append(int(room_number))
         QMessageBox(QMessageBox.Information, "Release Room",
-            "Congratulations. You successfully released this room!!!").exec()
+                    "Congratulations. You successfully" +
+                    " released this room!!!").exec()
