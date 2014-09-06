@@ -4,11 +4,11 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QPixmap
-from PyQt5.QtWidgets import QLabel, QLineEdit, QPushButton, QMessageBox,\
-                            QDialog, QGridLayout, QLayout, QTableView,\
-                            QAbstractScrollArea
+from PyQt5.QtWidgets import (QLabel, QLineEdit, QPushButton, QMessageBox,
+                             QDialog, QGridLayout, QLayout, QTableView,
+                             QAbstractScrollArea)
 
-from management.client_management import show_client 
+from management.client_management import show_client
 from data_correctness import Validations
 from classes.client import Client
 import gui.main
@@ -17,7 +17,7 @@ from management.client_management import show_client
 
 
 class ShowClient_Form(QDialog):
-    def __init__( self ):
+    def __init__(self):
         super(ShowClient_Form, self).__init__()
         self.setupUi(self)
 
@@ -41,7 +41,6 @@ class ShowClient_Form(QDialog):
         self.layout().setSizeConstraint(QLayout.SetFixedSize)
         self.setWindowIcon(QIcon(QPixmap('hotel_icon.jpg')))
         self.setWindowTitle("Show Client")
-
 
     def show_clients_model(self, clients, is_maid=False):
         self.table = QTableView()
@@ -72,9 +71,9 @@ class ShowClient_Form(QDialog):
         last_name = self.last_name_line_edit.text()
 
         if self.is_information_invalid(first_name, last_name):
-            error_message = self.error_message(first_name, last_name) 
+            error_message = self.error_message(first_name, last_name)
             QMessageBox(QMessageBox.Critical, "Error",
-                        "Invalid "  + error_message[:len(error_message) - 1] +\
+                        "Invalid " + error_message[:len(error_message) - 1] +
                         ". Correct it!!!").exec_()
             return
         if not show_client(first_name.capitalize(), last_name.capitalize()):
@@ -83,4 +82,3 @@ class ShowClient_Form(QDialog):
             return
         self.show_clients_model(show_client(first_name.capitalize(),
                                             last_name.capitalize()), True)
-
