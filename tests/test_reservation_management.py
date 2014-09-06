@@ -18,9 +18,10 @@ TEST_DATABASE_FILENAME = 'tests.db'
 
 import unittest
 
+
 class ReservationsManagementTest(unittest.TestCase):
     def __init__(self, *args):
-        unittest.TestCase.__init__(self, *args) 
+        unittest.TestCase.__init__(self, *args)
 
     def setUp(self):
         create_tables(TEST_DATABASE_FILENAME)
@@ -35,7 +36,8 @@ class ReservationsManagementTest(unittest.TestCase):
         self.assertTrue(overbooking(client, new_client))
 
         client_first_day = date_to_string(date.today() + timedelta(days=5))
-        new_client_first_day = date_to_string(date.today() + timedelta(days=14))
+        new_client_first_day = (date_to_string(date.today() +
+                                timedelta(days=14)))
         client = Client('Roger', 'Federer', '0898671234', 100, 5,
                         client_first_day)
         new_client = Client('Rafael', 'Nadal', '0898671234', 101, 10,
@@ -49,7 +51,7 @@ class ReservationsManagementTest(unittest.TestCase):
         new_client = Client('Rafael', 'Nadal', '0898671234', 101, 10,
                             new_client_first_day)
         self.assertTrue(overbooking(client, new_client))
-        
+
         client_first_day = date_to_string(date.today() + timedelta(days=4))
         new_client_first_day = date_to_string(date.today() + timedelta(days=2))
         client = Client('Roger', 'Federer', '0898671234', 100, 5,
@@ -65,7 +67,6 @@ class ReservationsManagementTest(unittest.TestCase):
         new_client = Client('Rafael', 'Nadal', '0898671234', 101, 5,
                             new_client_first_day)
         self.assertTrue(overbooking(client, new_client))
-
 
         client_first_day = date_to_string(date.today() + timedelta(days=10))
         new_client_first_day = date_to_string(date.today() + timedelta(days=2))
@@ -92,14 +93,17 @@ class ReservationsManagementTest(unittest.TestCase):
         new_client = Client('Rafael', 'Nadal', '0898671234', 101, 7,
                             new_client_first_day)
         self.assertTrue(make_reservation(100, client, TEST_DATABASE_FILENAME))
-        self.assertTrue(make_reservation(101, new_client, TEST_DATABASE_FILENAME))
+        self.assertTrue(make_reservation(101, new_client,
+                                         TEST_DATABASE_FILENAME))
 
         release_room(100, TEST_DATABASE_FILENAME)
         client_first_day = date_to_string(date.today() + timedelta(days=3))
         client = Client('Roger', 'Federer', '0898671234', 101, 5,
                         client_first_day)
-        self.assertFalse(make_reservation(101, client, TEST_DATABASE_FILENAME))
-        self.assertTrue(make_reservation(100, new_client, TEST_DATABASE_FILENAME))
+        self.assertFalse(make_reservation(101, client,
+                                          TEST_DATABASE_FILENAME))
+        self.assertTrue(make_reservation(100, new_client,
+                                         TEST_DATABASE_FILENAME))
 
     def test_cancel_reservation(self):
         delete_reservations_table_rows(TEST_DATABASE_FILENAME)
@@ -111,7 +115,8 @@ class ReservationsManagementTest(unittest.TestCase):
         add_new_room(second_room, TEST_DATABASE_FILENAME)
 
         client_first_day = date_to_string(date.today() + timedelta(days=10))
-        new_client_first_day = date_to_string(date.today() + timedelta(days=2))
+        new_client_first_day = (date_to_string(date.today() +
+                                timedelta(days=2)))
         client = Client('Roger', 'Federer', '0898671234', 100, 5,
                         client_first_day)
         other_client = Client('Rafael', 'Nadal', '0898671234', 101, 10,
@@ -142,12 +147,14 @@ class ReservationsManagementTest(unittest.TestCase):
                               new_client_first_day)
         make_reservation(100, client, TEST_DATABASE_FILENAME)
         make_reservation(101, other_client, TEST_DATABASE_FILENAME)
-        self.assertCountEqual(get_all_reservations(TEST_DATABASE_FILENAME), 
+        self.assertCountEqual(get_all_reservations(TEST_DATABASE_FILENAME),
                               [client, other_client])
         self.assertNotEqual(get_all_reservations(TEST_DATABASE_FILENAME),
                             [client])
         self.assertNotEqual(get_all_reservations(TEST_DATABASE_FILENAME),
                             [other_client])
         self.assertNotEqual(get_all_reservations(TEST_DATABASE_FILENAME), [])
-        self.assertTrue(client in get_all_reservations(TEST_DATABASE_FILENAME))
-        self.assertTrue(other_client in get_all_reservations(TEST_DATABASE_FILENAME))
+        self.assertTrue(client in
+                        get_all_reservations(TEST_DATABASE_FILENAME))
+        self.assertTrue(other_client in
+                        get_all_reservations(TEST_DATABASE_FILENAME))
