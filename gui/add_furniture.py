@@ -11,7 +11,7 @@ from management.room_management import get_all_rooms_number, add_furniture
 
 
 class Furniture_Form(QWidget):
-    def __init__( self ):
+    def __init__(self):
         super(Furniture_Form, self).__init__()
         self.setupUi(self)
 
@@ -22,8 +22,8 @@ class Furniture_Form(QWidget):
         if get_all_rooms_number() != []:
             min_room_number = min(get_all_rooms_number())
             max_room_number = max(get_all_rooms_number())
-            room_number_label = "Enter room number({0}-{1}):".\
-            format(str(min_room_number), str(max_room_number))
+            room_number_label = "Enter room number({0}-{1}):".format(
+                                str(min_room_number), str(max_room_number))
         else:
             room_number_label = ''
         self.room_number_label = QLabel(room_number_label)
@@ -54,8 +54,8 @@ class Furniture_Form(QWidget):
         result = []
         if not Validations.is_name(name):
             result.append('name, ')
-        if (not Validations.is_positive_integer(room_number) or 
-            not int(room_number) in get_all_rooms_number()):
+        if (not Validations.is_positive_integer(room_number) or
+           not int(room_number) in get_all_rooms_number()):
             result.append('room number' + ',')
         return ' '.join(result)
 
@@ -65,9 +65,9 @@ class Furniture_Form(QWidget):
         quality = self.quality_combo_box.currentText()
 
         if self.is_information_invalid(name, room_number):
-            error_message = self.error_message(name, room_number) 
+            error_message = self.error_message(name, room_number)
             QMessageBox(QMessageBox.Critical, "Error",
-                        "Invalid "  + error_message[:len(error_message) - 1] +\
+                        "Invalid " + error_message[:len(error_message) - 1] +
                         ". Correct it!!!").exec_()
             return
 
@@ -76,19 +76,21 @@ class Furniture_Form(QWidget):
         if new_furniture in self.furnitures:
             notifier = QMessageBox(QMessageBox.Question,
                                    "Add New Furniture",
-          "You have already added this Furniture. Do you want to add it again?", 
-                                    QMessageBox.Yes | QMessageBox.No)
+                                   "You have already added this Furniture." +
+                                   " Do you want to add it again?",
+                                   QMessageBox.Yes | QMessageBox.No)
             notifier.setDefaultButton(QMessageBox.No)
             choosed_option = notifier.exec_()
 
             if choosed_option == QMessageBox.No:
                 return
             elif choosed_option == QMessageBox.Yes:
-                self.furnitures.append(new_furniture)        
+                self.furnitures.append(new_furniture)
                 add_furniture(new_furniture)
                 return
 
         add_furniture(new_furniture)
         self.furnitures.append(new_furniture)
         QMessageBox(QMessageBox.Information, "Add New Furniture",
-        "Congratulations. You successful added this Furniture!!!").exec_()
+                    "Congratulations. You successfully" +
+                    " added this Furniture!!!").exec_()
