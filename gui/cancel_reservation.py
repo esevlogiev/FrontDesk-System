@@ -2,9 +2,9 @@ import sys
 import os.path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from PyQt5.QtWidgets import QLabel, QLineEdit, QDateEdit, QPushButton,\
-                            QMessageBox, QApplication, QDialog, QGridLayout,\
-                            QLayout
+from PyQt5.QtWidgets import (QLabel, QLineEdit, QDateEdit, QPushButton,
+                             QMessageBox, QApplication, QDialog, QGridLayout,
+                             QLayout)
 from PyQt5.QtCore import Qt, QDate
 from PyQt5.QtGui import QIcon, QPixmap
 
@@ -15,8 +15,9 @@ from classes.client import Client
 import gui.main
 from management.client_management import date_to_string
 
+
 class CancelReservation_Form(QDialog):
-    def __init__( self ):
+    def __init__(self):
         super(CancelReservation_Form, self).__init__()
         self.setupUi(self)
 
@@ -28,8 +29,7 @@ class CancelReservation_Form(QDialog):
         min_room_number = min(get_all_rooms_number())
         max_room_number = max(get_all_rooms_number())
         room_number_label = "Enter room number({0}-{1}):".format(
-                                                          str(min_room_number),
-                                                          str(max_room_number))
+                            str(min_room_number), str(max_room_number))
         self.room_number_label = QLabel(room_number_label)
         self.room_number_line_edit = QLineEdit()
         self.first_name_label = QLabel("First Name:")
@@ -50,7 +50,7 @@ class CancelReservation_Form(QDialog):
         layout.addWidget(self.date_registere_edit, 3, 1)
         layout.addWidget(self.cancel_reservation_button, 4, 0, 1, 2,
                          Qt.AlignCenter)
-        
+
         self.setLayout(layout)
         self.cancel_reservation_button.clicked.connect(self.cancel_button_click)
         self.layout().setSizeConstraint(QLayout.SetFixedSize)
@@ -63,7 +63,7 @@ class CancelReservation_Form(QDialog):
         day = str(date.day())
         return year + '-' + month + '-' + day
 
-    def is_information_invalid(self, room_number, first_name, last_name, 
+    def is_information_invalid(self, room_number, first_name, last_name,
                                date_registere):
         return (not Validations.is_positive_integer(room_number) or
                 not Validations.is_name(first_name) or
@@ -79,12 +79,10 @@ class CancelReservation_Form(QDialog):
         for i in range(len(data)):
             if not properties[i](data[i]):
                 result.append(messages[i] + ',')
-        if (not Validations.is_positive_integer(room_number) or 
-            not int(room_number) in get_all_rooms_number()):
+        if (not Validations.is_positive_integer(room_number) or
+           not int(room_number) in get_all_rooms_number()):
             result.append('room number' + ',')
         return ' '.join(result)
-
-
 
     def cancel_button_click(self):
         first_name = self.first_name_line_edit.text()
@@ -92,19 +90,21 @@ class CancelReservation_Form(QDialog):
         date_registere = self.date_registere_edit.date()
         room_number = self.room_number_line_edit.text()
 
-
         if self.is_information_invalid(room_number, first_name, last_name,
                                        date_registere):
-            error_message = self.error_message(room_number, first_name, last_name) 
+            error_message = self.error_message(room_number,
+                                               first_name, last_name)
             QMessageBox(QMessageBox.Critical, "Error",
-                        "Invalid "  + error_message[:len(error_message) - 1] +\
+                        "Invalid " + error_message[:len(error_message) - 1] +
                         ". Correct it!!!").exec_()
             return
 
-        if cancel_reservation(int(room_number), first_name.capitalize(), last_name.capitalize(),
+        if cancel_reservation(int(room_number), first_name.capitalize(),
+                              last_name.capitalize(),
                               date_to_string(date_registere)):
             QMessageBox(QMessageBox.Information, "Cancel Reservation",
-                        "Congratulations. You successful cancel this reservation!!!").exec_()
+                        "Congratulations. You successfully" +
+                        " cancel this reservation!!!").exec_()
         else:
             QMessageBox(QMessageBox.Information, "Cancel Reservation",
                         "This resservation doesn't exists!!!").exec_()
