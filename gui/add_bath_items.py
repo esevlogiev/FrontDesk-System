@@ -1,6 +1,7 @@
 from PyQt5.QtCore import QDate
-from PyQt5.QtWidgets import QLayout, QLabel, QLineEdit, QDateEdit, QMessageBox,\
-                            QApplication, QWidget, QGridLayout
+from PyQt5.QtWidgets import (QLayout, QLabel, QLineEdit, QDateEdit,
+                             QMessageBox, QApplication,
+                             QWidget, QGridLayout)
 
 import sys
 import os.path
@@ -12,7 +13,7 @@ from management.room_management import add_bath_item, get_all_rooms_number
 
 
 class BathItems_Form(QWidget):
-    def __init__( self ):
+    def __init__(self):
         super(BathItems_Form, self).__init__()
         self.setupUi(self)
 
@@ -23,8 +24,9 @@ class BathItems_Form(QWidget):
         if get_all_rooms_number() != []:
             min_room_number = min(get_all_rooms_number())
             max_room_number = max(get_all_rooms_number())
-            room_number_label = "Enter room number({0}-{1}):".\
-                              format(str(min_room_number), str(max_room_number))
+            room_number_label = ("Enter room number({0}-{1}):".format(
+                                 str(min_room_number),
+                                 str(max_room_number)))
         else:
             room_number_label = ''
         self.room_number_label = QLabel(room_number_label)
@@ -58,8 +60,8 @@ class BathItems_Form(QWidget):
                                last_replace_date):
         return (not Validations.is_name(name) or
                 not Validations.is_positive_integer(replace_period) or
-                last_replace_date.addDays(int(replace_period)) <=\
-                                          QDate.currentDate() or
+                last_replace_date.addDays(int(replace_period)) <=
+                QDate.currentDate() or
                 not int(room_number) in get_all_rooms_number())
 
     def error_message(self, name, replace_period, room_number):
@@ -70,8 +72,8 @@ class BathItems_Form(QWidget):
         for i in range(len(data)):
             if not properties[i](data[i]):
                 result.append(messages[i] + ',')
-        if (not Validations.is_positive_integer(room_number) or 
-            not int(room_number) in get_all_rooms_number()):
+        if (not Validations.is_positive_integer(room_number) or
+           not int(room_number) in get_all_rooms_number()):
             result.append('room number' + ',')
         return ' '.join(result)
 
@@ -84,9 +86,9 @@ class BathItems_Form(QWidget):
         if self.is_information_invalid(name, replace_period, room_number,
                                        last_replace_date):
             error_message = self.error_message(name, replace_period,
-                                               room_number) 
+                                               room_number)
             QMessageBox(QMessageBox.Critical, "Error",
-                        "Invalid "  + error_message[:len(error_message) - 1] +\
+                        "Invalid " + error_message[:len(error_message) - 1] +
                         ". Correct it!!!").exec_()
             return
 
@@ -97,19 +99,21 @@ class BathItems_Form(QWidget):
         if new_bath_item in self.bath_items:
             notifier = QMessageBox(QMessageBox.Question,
                                    "Add New Bath Item",
-          "You have already added this Bath Item. Do you want to add it again?", 
-                                    QMessageBox.Yes | QMessageBox.No)
+                                   ('You have already added this Bath Item.' +
+                                    ' Do you want to add it again?'),
+                                   QMessageBox.Yes | QMessageBox.No)
             notifier.setDefaultButton(QMessageBox.No)
             choosed_option = notifier.exec_()
 
             if choosed_option == QMessageBox.No:
                 return
             elif choosed_option == QMessageBox.Yes:
-                self.bath_items.append(new_bath_item)        
+                self.bath_items.append(new_bath_item)
                 add_bath_item(new_bath_item)
                 return
 
         add_bath_item(new_bath_item)
         self.bath_items.append(new_bath_item)
         QMessageBox(QMessageBox.Information, "Add New Bath Item",
-              "Congratulations. You successful added this Bath Item!!!").exec_()
+                    ("Congratulations. You successful' +
+                     "added this Bath Item!!!")).exec_()
