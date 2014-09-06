@@ -7,14 +7,16 @@ from PyQt5.QtWidgets import (QLabel, QLineEdit, QPushButton, QMessageBox,
                              QDialog, QGridLayout, QLayout, QComboBox,
                              QTableView, QAbstractScrollArea)
 
-from management.client_management import show_client 
+from management.client_management import show_client
 from data_correctness import Validations
 from classes.client import Client
 import gui.main
 from PyQt5.QtGui import QIcon, QPixmap
-from management.room_management import (furnitures_in_room, bath_items_in_room,
-                             food_in_room, sleeping_furnitures_in_room,
-                             get_all_rooms_number)
+from management.room_management import (furnitures_in_room,
+                                        bath_items_in_room,
+                                        food_in_room,
+                                        sleeping_furnitures_in_room,
+                                        get_all_rooms_number)
 from models.food_model import FoodModel
 from models.bath_item_model import BathItemsModel
 from models.furniture_model import FurnituresModel
@@ -22,8 +24,9 @@ from models.sleeping_furniture_model import SleepingFurnituresModel
 
 ITEMS = ["Furnitures", "Sleeping Furnitures", "Bath Items", "Food"]
 
+
 class ShowItems_Form(QDialog):
-    def __init__( self ):
+    def __init__(self):
         super(ShowItems_Form, self).__init__()
         self.setupUi(self)
 
@@ -36,7 +39,6 @@ class ShowItems_Form(QDialog):
         self.item_combo_box = QComboBox()
         self.show_items = QPushButton("Show Items")
 
-        #for i in range(0, len(ITEMS)):
         self.item_combo_box.addItems(ITEMS)
 
         layout.addWidget(self.room_number_label, 0, 0)
@@ -82,20 +84,19 @@ class ShowItems_Form(QDialog):
 
         if not int(room_number) in get_all_rooms_number():
             QMessageBox(QMessageBox.Critical, "Error",
-                     "There is no room with such number. Correct it!!!").exec_()
+                        "There is no room with such number." +
+                        " Correct it!!!").exec_()
             return
 
         if item == 'Furnitures':
             self.show_table(furnitures_in_room(int(room_number)),
-                                               FurnituresModel())
+                            FurnituresModel())
         elif item == 'Bath Items':
             self.show_table(bath_items_in_room(int(room_number)),
-                                               BathItemsModel())
+                            BathItemsModel())
         elif item == 'Food':
             self.show_table(food_in_room(int(room_number)),
-                                         FoodModel())
+                            FoodModel())
         elif item == 'Sleeping Furnitures':
             self.show_table(sleeping_furnitures_in_room(int(room_number)),
-                                               SleepingFurnituresModel())
-
-        
+                            SleepingFurnituresModel())
