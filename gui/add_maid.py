@@ -5,14 +5,13 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import (QLabel, QLineEdit, QPushButton, QMessageBox,
-                            QDialog, QGridLayout, QLayout)
+                             QDialog, QGridLayout, QLayout)
 from management.maid_management import add_maid
 from data_correctness import Validations
 
 
-
 class MaidForm(QDialog):
-    def __init__( self ):
+    def __init__(self):
         super(MaidForm, self).__init__()
         self.setupUi(self)
 
@@ -37,7 +36,6 @@ class MaidForm(QDialog):
         self.setWindowIcon(QIcon(QPixmap('hotel_icon.jpg')))
         self.setWindowTitle("Add Maid")
 
-
     def is_information_invalid(self, first_name, last_name):
         return (not Validations.is_name(first_name) or
                 not Validations.is_name(last_name))
@@ -57,12 +55,12 @@ class MaidForm(QDialog):
         last_name = self.last_name_line_edit.text()
 
         if self.is_information_invalid(first_name, last_name):
-            error_message = self.error_message(first_name, last_name) 
+            error_message = self.error_message(first_name, last_name)
             QMessageBox(QMessageBox.Critical, "Error",
-                        "Invalid "  + error_message[:len(error_message) - 1] +\
+                        "Invalid " + error_message[:len(error_message) - 1] +
                         ". Correct it!!!").exec_()
             return
-            
+
         if add_maid(first_name.capitalize(), last_name.capitalize()):
             QMessageBox(QMessageBox.Information, "Add Maid",
                         "You add this Maid!!!").exec_()
