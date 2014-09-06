@@ -1,7 +1,6 @@
 import sqlite3
 
 
-
 class RoomNumber:
     def __init__(self, floor, number):
         self.floor = floor
@@ -18,6 +17,7 @@ class RoomNumber:
     def __str__(self):
         return str(self.number) + " room is on " + " floor " + str(self.floor)
 
+
 class Room:
     def __init__(self, number, price_per_day, capacity, is_rent):
         self.number = number
@@ -30,6 +30,7 @@ class Room:
         if protocol is sqlite3.PrepareProtocol:
             return "%i;%f;%i;%s" % (self.number, self.price_per_day,
                                     self.capacity, self.is_rent)
+
     @property
     def get_is_rent(self):
         return self.is_rent
@@ -60,11 +61,10 @@ class Room:
         return self.price_per_day * days
 
     def __str__(self):
-        return str(self.number) + ' ' + str(self.price_per_day) + ' '\
-               + str(self.capacity) + ' ' + str(self.is_rent)
+        return (str(self.number) + ' ' + str(self.price_per_day) + ' ' +
+                str(self.capacity) + ' ' + str(self.is_rent))
 
     def __eq__(self, other):
         if type(other) is type(self):
             return self.__dict__ == other.__dict__
         return False
-        
