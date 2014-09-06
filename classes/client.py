@@ -17,17 +17,16 @@ class Client:
         self.time_stay = stay
         self.phone_number = phone_number
 
-
     def __conform__(self, protocol):
         if protocol is sqlite3.PrepareProtocol:
-            return "%s;%s;%s;%i;%i;%s" % (self.first_name, self.last_name, 
-                 self.phone_number, self.number_room,
-                 self.time_stay, self.date_registere)
+            return "%s;%s;%s;%i;%i;%s" % (self.first_name, self.last_name,
+                                          self.phone_number, self.number_room,
+                                          self.time_stay, self.date_registere)
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name + ' with phone ' +\
-               self.phone_number + ' is registered on '\
-               + self.date_registere + ' in room ' + str(self.number_room)
+        return (self.first_name + ' ' + self.last_name + ' with phone ' +
+                self.phone_number + ' is registered on ' +
+                self.date_registere + ' in room ' + str(self.number_room))
 
     @property
     def get_first_name(self):
@@ -61,7 +60,6 @@ class Client:
     @property
     def get_date_registere(self):
         return self.date_registere
-        
 
     def try_rent_room(self, room):
         if room.is_rent:
