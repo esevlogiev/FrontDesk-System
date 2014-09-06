@@ -99,8 +99,8 @@ class BathItems_Form(QWidget):
         if new_bath_item in self.bath_items:
             notifier = QMessageBox(QMessageBox.Question,
                                    "Add New Bath Item",
-                                   ('You have already added this Bath Item.' +
-                                    ' Do you want to add it again?'),
+                                   'You have already added this Bath Item.' +
+                                   ' Do you want to add it again?',
                                    QMessageBox.Yes | QMessageBox.No)
             notifier.setDefaultButton(QMessageBox.No)
             choosed_option = notifier.exec_()
@@ -115,5 +115,5 @@ class BathItems_Form(QWidget):
         add_bath_item(new_bath_item)
         self.bath_items.append(new_bath_item)
         QMessageBox(QMessageBox.Information, "Add New Bath Item",
-                    ("Congratulations. You successful' +
-                     "added this Bath Item!!!")).exec_()
+                    "Congratulations. You successful" +
+                    "added this Bath Item!!!").exec_()
