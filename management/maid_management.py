@@ -19,7 +19,8 @@ def add_maid(first_name, last_name, filename=DATABASE_FILENAME):
     connection.close()
     return True
 
-def add_maid_to_serve_client(first_name, last_name, 
+
+def add_maid_to_serve_client(first_name, last_name,
                              client_id, filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
@@ -27,6 +28,7 @@ def add_maid_to_serve_client(first_name, last_name,
                     (?, ?, ?)", (first_name, last_name, client_id))
     connection.commit()
     connection.close()
+
 
 def get_all_maids(filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
@@ -56,13 +58,15 @@ def get_maid_names(maid_id, filename=DATABASE_FILENAME):
     cursor = connection.cursor()
     cursor.execute("Select * from Maids where client_id = ?", (maid_id,))
     maid = cursor.fetchone()
-    if maid == None:
+    if maid is None:
         return
     return maid[0] + ' ' + maid[1]
+
 
 def set_maid_to_client(client_id, filename=DATABASE_FILENAME):
     maid = get_the_least_busy_maid(filename)
     add_maid_to_serve_client(maid[0], maid[1], client_id, filename)
+
 
 def get_all_maid_characteristics(filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
