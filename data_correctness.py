@@ -8,6 +8,7 @@ PERSON_NAME = r'^[A-Z][a-z]*$'
 ITEM_NAME = r'^[a-z][a-z]*$'
 NAME = r'^[A-Za-z][A-Za-z]*$'
 
+
 class Validations:
     @classmethod
     def equal(cls, pattern, value):
@@ -21,8 +22,8 @@ class Validations:
 
     @classmethod
     def is_phone(cls, value):
-        return  Validations.equal(INTERNATIONAL_FORMAT, value) or\
-                Validations.equal(LOCAL_FORMAT, value)
+        return (Validations.equal(INTERNATIONAL_FORMAT, value) or
+                Validations.equal(LOCAL_FORMAT, value))
 
     @classmethod
     def is_float_number(cls, value):
