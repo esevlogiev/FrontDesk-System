@@ -10,7 +10,8 @@ import create_database_tables
 
 import datetime
 
-def add_new_room(new_room, filename = DATABASE_FILENAME):
+
+def add_new_room(new_room, filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute('Select * from Rooms')
@@ -19,12 +20,13 @@ def add_new_room(new_room, filename = DATABASE_FILENAME):
         if convert_room(room[0]).get_number == new_room.get_number:
             connection.close()
             return False
-    cursor.execute("INSERT INTO Rooms(room) values (?)", (new_room,))      
+    cursor.execute("INSERT INTO Rooms(room) values (?)", (new_room,))
     connection.commit()
     connection.close()
     return True
 
-def release_room(room_number, filename = DATABASE_FILENAME):
+
+def release_room(room_number, filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute("select * from Rooms")
@@ -41,7 +43,8 @@ def release_room(room_number, filename = DATABASE_FILENAME):
     connection.commit()
     connection.close()
 
-def release_all_rooms(filename = DATABASE_FILENAME):
+
+def release_all_rooms(filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute("select * from Clients")
@@ -61,12 +64,13 @@ def release_all_rooms(filename = DATABASE_FILENAME):
 def new_expire_date(old_manufacture_date, old_expire_date):
     year, month, day = old_manufacture_date.split("-")
     year_, month_, day_ = old_expire_date.split("-")
-    expire_days = datetime.date(int(year_), int(month_), int(day_)) -\
-                  datetime.date(int(year), int(month), int(day))
-    return datetime.date.today() + datetime.timedelta(days=int(expire_days.days))
+    expire_days = (datetime.date(int(year_), int(month_), int(day_)) -
+                   datetime.date(int(year), int(month), int(day)))
+    return (datetime.date.today() +
+            datetime.timedelta(days=int(expire_days.days)))
 
 
-def change_food(filename = DATABASE_FILENAME):
+def change_food(filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute("select * from Food")
@@ -76,7 +80,7 @@ def change_food(filename = DATABASE_FILENAME):
             new_food = convert_to_food(food[0])
             old_manufacture_date = convert_to_food(food[0]).get_manufacture_date
             old_expire_date = convert_to_food(food[0]).get_expire_date
-                                                              
+
             new_food.replace(str(datetime.date.today()),
                              str(new_expire_date(old_manufacture_date,
                                  old_expire_date)))
@@ -86,7 +90,7 @@ def change_food(filename = DATABASE_FILENAME):
     connection.close()
 
 
-def change_bath_item(filename = DATABASE_FILENAME):
+def change_bath_item(filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute("select * from BathItems")
@@ -102,14 +106,16 @@ def change_bath_item(filename = DATABASE_FILENAME):
     connection.commit()
     connection.close()
 
-def add_food(new_food, filename = DATABASE_FILENAME):
+
+def add_food(new_food, filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute("INSERT INTO Food(food) values (?)", (new_food,))
     connection.commit()
     connection.close()
 
-def food_in_room(room_number, filename = DATABASE_FILENAME):
+
+def food_in_room(room_number, filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute('''Select * from Food''')
@@ -122,7 +128,7 @@ def food_in_room(room_number, filename = DATABASE_FILENAME):
     return result
 
 
-def add_furniture(new_furniture, filename = DATABASE_FILENAME):
+def add_furniture(new_furniture, filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute("INSERT INTO Furniture(furniture) values (?)",
@@ -130,19 +136,22 @@ def add_furniture(new_furniture, filename = DATABASE_FILENAME):
     connection.commit()
     connection.close()
 
-def furnitures_in_room(room_number, filename = DATABASE_FILENAME):
+
+def furnitures_in_room(room_number, filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute('''Select * from Furniture''')
     furnitures = cursor.fetchall()
     result = []
     for furniture in furnitures:
-        if int(convert_to_furniture(furniture[0]).get_room_number) == room_number:
+        if (int(convert_to_furniture(furniture[0]).get_room_number) ==
+           room_number):
             result.append(convert_to_furniture(furniture[0]))
     connection.close()
     return result
 
-def add_sleeping_furniture(new_sleeping_furniture, filename = DATABASE_FILENAME):
+
+def add_sleeping_furniture(new_sleeping_furniture, filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute("INSERT INTO SleepingFurniture(sf) values (?)",
@@ -150,7 +159,8 @@ def add_sleeping_furniture(new_sleeping_furniture, filename = DATABASE_FILENAME)
     connection.commit()
     connection.close()
 
-def sleeping_furnitures_in_room(room_number, filename = DATABASE_FILENAME):
+
+def sleeping_furnitures_in_room(room_number, filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute('''Select * from SleepingFurniture''')
@@ -163,7 +173,8 @@ def sleeping_furnitures_in_room(room_number, filename = DATABASE_FILENAME):
     connection.close()
     return result
 
-def add_bath_item(new_bath_item, filename = DATABASE_FILENAME):
+
+def add_bath_item(new_bath_item, filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute("INSERT INTO BathItems(bath_items) values (?)",
@@ -171,7 +182,8 @@ def add_bath_item(new_bath_item, filename = DATABASE_FILENAME):
     connection.commit()
     connection.close()
 
-def bath_items_in_room(room_number, filename = DATABASE_FILENAME):
+
+def bath_items_in_room(room_number, filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute('''Select * from BathItems''')
@@ -183,17 +195,19 @@ def bath_items_in_room(room_number, filename = DATABASE_FILENAME):
     connection.close()
     return result
 
-def get_all_free_rooms_number(filename = DATABASE_FILENAME):
+
+def get_all_free_rooms_number(filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute("select * from Rooms")
     rooms = cursor.fetchall()
-    result = [convert_room(room[0]).get_number for room in rooms 
-                if convert_room(room[0]).is_rent == "False"]
+    result = [convert_room(room[0]).get_number for room in rooms
+              if convert_room(room[0]).is_rent == "False"]
     connection.close()
     return result
 
-def get_all_rooms_number(filename = DATABASE_FILENAME):
+
+def get_all_rooms_number(filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute("select * from Rooms")
@@ -203,7 +217,7 @@ def get_all_rooms_number(filename = DATABASE_FILENAME):
     return result
 
 
-def get_room(room_number, filename = DATABASE_FILENAME):
+def get_room(room_number, filename=DATABASE_FILENAME):
     connection = sqlite3.connect(filename)
     cursor = connection.cursor()
     cursor.execute("select * from Rooms")
@@ -213,6 +227,7 @@ def get_room(room_number, filename = DATABASE_FILENAME):
         if room_.get_number == room_number:
             return room_
 
+
 def get_all_rooms(filename=DATABASE_FILENAME):
-    return [get_room(room_number, filename) 
+    return [get_room(room_number, filename)
             for room_number in get_all_rooms_number(filename)]
