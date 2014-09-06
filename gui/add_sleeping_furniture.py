@@ -2,13 +2,13 @@ import sys
 import os.path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from PyQt5.QtWidgets import QLabel, QLineEdit, QComboBox, QMessageBox, QWidget,\
-                            QApplication, QGridLayout, QLayout
+from PyQt5.QtWidgets import (QLabel, QLineEdit, QComboBox, QMessageBox,
+                             QWidget, QApplication, QGridLayout, QLayout)
 
 from data_correctness import Validations
 from classes.sleeping_furniture import SleepingFurniture
-from management.room_management import get_all_rooms_number,\
-                                       add_sleeping_furniture
+from management.room_management import (get_all_rooms_number,
+                                        add_sleeping_furniture)
 
 
 class SleepingFurniture_Form(QWidget):
@@ -24,8 +24,7 @@ class SleepingFurniture_Form(QWidget):
             min_room_number = min(get_all_rooms_number())
             max_room_number = max(get_all_rooms_number())
             room_number_label = "Enter room number({0}-{1}):".format(
-                                                           str(min_room_number),
-                                                           str(max_room_number))
+                                str(min_room_number), str(max_room_number))
         else:
             room_number_label = ''
         self.room_number_label = QLabel(room_number_label)
@@ -67,8 +66,8 @@ class SleepingFurniture_Form(QWidget):
         for i in range(len(data)):
             if not properties[i](data[i]):
                 result.append(messages[i] + ',')
-        if (not Validations.is_positive_integer(room_number) or 
-            not int(room_number) in get_all_rooms_number()):
+        if (not Validations.is_positive_integer(room_number) or
+           not int(room_number) in get_all_rooms_number()):
             result.append('room number' + ',')
         return ' '.join(result)
 
@@ -79,32 +78,35 @@ class SleepingFurniture_Form(QWidget):
         quality = self.quality_combo_box.currentText()
 
         if self.is_information_invalid(name, sleeping_seats, room_number):
-            error_message = self.error_message(name, sleeping_seats, room_number) 
+            error_message = self.error_message(name, sleeping_seats,
+                                               room_number)
             QMessageBox(QMessageBox.Critical, "Error",
-                        "Invalid "  + error_message[:len(error_message) - 1] +\
+                        "Invalid " + error_message[:len(error_message) - 1] +
                         ". Correct it!!!").exec_()
             return
 
         new_sleeping_furniture = SleepingFurniture(name, quality,
-                                                    int(sleeping_seats), 
-                                                    int(room_number))
+                                                   int(sleeping_seats),
+                                                   int(room_number))
 
         if new_sleeping_furniture in self.sleeping_furnitures:
             notifier = QMessageBox(QMessageBox.Question,
                                    "Add New Sleeping Furniture",
-            "You have already added this Sleeping Furniture. Do you want to add it again?", 
-                                    QMessageBox.Yes | QMessageBox.No)
+                                   "You have already added this Sleeping" +
+                                   " Furniture. Do you want to add it again?",
+                                   QMessageBox.Yes | QMessageBox.No)
             notifier.setDefaultButton(QMessageBox.No)
             choosed_option = notifier.exec_()
 
             if choosed_option == QMessageBox.No:
                 return
             elif choosed_option == QMessageBox.Yes:
-                self.sleeping_furnitures.append(new_sleeping_furniture)        
+                self.sleeping_furnitures.append(new_sleeping_furniture)
                 add_sleeping_furniture(new_sleeping_furniture)
                 return
 
         add_sleeping_furniture(new_sleeping_furniture)
         self.sleeping_furnitures.append(new_sleeping_furniture)
         QMessageBox(QMessageBox.Information, "Add New sleeping furniture",
-        "Congratulations. You successful added this sleeping furniture!!!").exec_()
+                    "Congratulations. You successfully" +
+                    " added this sleeping furniture!!!").exec_()
