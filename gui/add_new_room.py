@@ -14,7 +14,7 @@ from management.room_management import add_new_room, get_all_rooms_number
 
 
 class AddNewRoom_Form(QDialog):
-    def __init__( self ):
+    def __init__(self):
         super(AddNewRoom_Form, self).__init__()
         self.setupUi(self)
 
@@ -52,7 +52,7 @@ class AddNewRoom_Form(QDialog):
 
     def error_message(self, room_number, capacity, price_per_day):
         properties = [Validations.is_positive_integer,
-                      Validations.is_positive_integer, 
+                      Validations.is_positive_integer,
                       Validations.is_float_number]
         data = [capacity, price_per_day]
         messages = ['capacity', 'price per day']
@@ -60,8 +60,8 @@ class AddNewRoom_Form(QDialog):
         for i in range(len(data)):
             if not properties[i](data[i]):
                 result.append(messages[i] + ',')
-        if (not Validations.is_positive_integer(room_number) or 
-            int(room_number) in get_all_rooms_number()):
+        if (not Validations.is_positive_integer(room_number) or
+           int(room_number) in get_all_rooms_number()):
             result.append('room number' + ',')
         return ' '.join(result)
 
@@ -71,9 +71,10 @@ class AddNewRoom_Form(QDialog):
         capacity = self.capacity_line_edit.text()
 
         if self.is_information_invalid(room_number, capacity, price_per_day):
-            error_message = self.error_message(room_number, capacity, price_per_day) 
+            error_message = self.error_message(room_number, capacity,
+                                               price_per_day)
             QMessageBox(QMessageBox.Critical, "Error",
-                        "Invalid "  + error_message[:len(error_message) - 1] +\
+                        "Invalid " + error_message[:len(error_message) - 1] +
                         ". Correct it!!!").exec_()
             return
 
@@ -87,7 +88,8 @@ class AddNewRoom_Form(QDialog):
         self.rooms.append(new_room)
         if add_new_room(new_room):
             QMessageBox(QMessageBox.Information, "Add New Room",
-            "Congratulations. You successful added this room!!!").exec_()
+                        "Congratulations. You successfully" +
+                        " added this room!!!").exec_()
         else:
             QMessageBox(QMessageBox.Information, "Add New Room",
                         "This room already exists!!!").exec_()
